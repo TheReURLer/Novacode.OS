@@ -35,17 +35,16 @@ runs:
       run: |
         GN_APPENDED_ARGS="$GN_EXTRA_ARGS target_cpu=\"x64\" v8_snapshot_toolchain=\"//build/toolchain/mac:clang_x64\""
         echo "GN_EXTRA_ARGS=$GN_APPENDED_ARGS" >> $GITHUB_ENV
-    - name: Set GN_EXTRA_ARGS for Windows
+    - name: Set GN_EXTRA_ARGS for Win/cross
       shell: bash
-      if: ${{inputs.target-arch != 'x64' && inputs.target-platform == 'win' }}
+      if: ${{ inputs.target-platform == 'win' }}
       run: |
-        GN_APPENDED_ARGS="$GN_EXTRA_ARGS target_cpu=\"${{ inputs.target-arch }}\""
+        GN_APPENDED_ARGS="$GN_EXTRA_ARGS use_v8_context_snapshot=true target_os=\"win\""
         echo "GN_EXTRA_ARGS=$GN_APPENDED_ARGS" >> $GITHUB_ENV
     - name: Add Clang problem matcher
       shell: bash
       run: echo "::add-matcher::src/electron/.github/problem-matchers/clang.json"
     - name: Build Electron ${{ inputs.step-suffix }}
-      if: ${{ inputs.target-platform != 'win' }}
       shell: bash
       run: |
         rm -rf "src/out/Default/Electron Framework.framework"
@@ -71,37 +70,14 @@ runs:
 
         # Upload build stats to Datadog
         if ! [ -z $DD_API_KEY ]; then
-          npx node electron/script/build-stats.mjs out/Default/siso.INFO --upload-stats || true          
+          if [ "$TARGET_PLATFORM" = "win" ]; then
+            npx node electron/script/build-stats.mjs out/Default/siso.exe.INFO --upload-stats || true
+          else
+            npx node electron/script/build-stats.mjs out/Default/siso.INFO --upload-stats || true
+          fi
         else
           echo "Skipping build-stats.mjs upload because DD_API_KEY is not set"
         fi
-    - name: Build Electron (Windows) ${{ inputs.step-suffix }}
-      if: ${{ inputs.target-platform == 'win' }}
-      shell: powershell
-      run: |
-        cd src\electron
-        git pack-refs
-        cd ..
-
-        $env:NINJA_SUMMARIZE_BUILD = 1
-        if ("${{ inputs.is-release }}" -eq "true") {          
-          e build --target electron:release_build
-        } else {
-          e build --target electron:testing_build
-        }
-        Copy-Item out\Default\.ninja_log out\electron_ninja_log
-        node electron\script\check-symlinks.js
-
-        # Upload build stats to Datadog
-        if ($env:DD_API_KEY) {
-          try {
-            npx node electron\script\build-stats.mjs out\Default\siso.exe.INFO --upload-stats
-          } catch {
-            Write-Host "Build stats upload failed, continuing..."
-          }
-        } else {
-          Write-Host "Skipping build-stats.mjs upload because DD_API_KEY is not set"
-        }
     - name: Verify dist.zip ${{ inputs.step-suffix }}
       shell: bash
       run: |
