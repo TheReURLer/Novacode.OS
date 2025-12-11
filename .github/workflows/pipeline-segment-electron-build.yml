@@ -200,10 +200,20 @@ jobs:
           echo "GETTING TOOLCHAIN DIR"
           e d python3 src/build/vs_toolchain.py get_toolchain_dir
 
-          rm -rf src/third_party/llvm-build
-          target_os=win python3 src/tools/clang/scripts/update.py
-          # Refs https://chromium-review.googlesource.com/c/chromium/src/+/6667681
-          python3 src/tools/clang/scripts/update.py --package objdump
+          # List the contents of src/third_party/llvm-build/Release+Asserts/lib/clang/22 if it exists
+          if [ -d "src/third_party/llvm-build/Release+Asserts/lib/clang/22" ]; then
+            echo "Contents of src/third_party/llvm-build/Release+Asserts/lib/clang/22:"
+            ls -la src/third_party/llvm-build/Release+Asserts/lib/clang/22
+            # List the contents of src/third_party/llvm-build/Release+Asserts/lib/clang/22/lib/windows if it exists
+            if [ -d "src/third_party/llvm-build/Release+Asserts/lib/clang/22/lib/windows" ]; then
+              echo "Contents of src/third_party/llvm-build/Release+Asserts/lib/clang/22/lib/windows:"
+              ls -la src/third_party/llvm-build/Release+Asserts/lib/clang/22/lib/windows    
+            else
+              echo "Directory src/third_party/llvm-build/Release+Asserts/lib/clang/22/lib/windows does not exist."
+            fi
+          else
+            echo "Directory src/third_party/llvm-build/Release+Asserts/lib/clang/22 does not exist."
+          fi
         fi
     - name: Regenerate DEPS Hash
       run: |
