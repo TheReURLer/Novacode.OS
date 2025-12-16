@@ -63,7 +63,7 @@ runs:
         if [ "${{ inputs.is-release }}" = "true" ]; then
           NINJA_SUMMARIZE_BUILD=1 e build --target electron:release_build
         else
-          NINJA_SUMMARIZE_BUILD=1 e build --target electron:testing_build -v
+          NINJA_SUMMARIZE_BUILD=1 e build --target electron:testing_build
         fi
         cp out/Default/.ninja_log out/electron_ninja_log
         node electron/script/check-symlinks.js
@@ -78,17 +78,6 @@ runs:
         else
           echo "Skipping build-stats.mjs upload because DD_API_KEY is not set"
         fi
-    - name: Dump gn args 
-      if: always()
-      shell: bash
-      run: |
-        cd src
-        echo "ABOUT TO DUMP GN ARGS"
-        cat out/Default/args.gn
-        echo "DONE DUMPING GN ARGS"
-        echo "ABOUT TO LIST GN ARGS"
-        e d gn args out/Default --list
-        echo "DONE LISTING GN ARGS"
     - name: Verify dist.zip ${{ inputs.step-suffix }}
       shell: bash
       run: |
