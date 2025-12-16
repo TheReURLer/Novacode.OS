@@ -188,9 +188,9 @@ jobs:
     - name: Run Electron Only Hooks
       run: |
         if [ "${{ inputs.target-platform }}" = "win" ]; then
-          echo "Windows platform detected, listing VS files before gclient runhooks"
-          ls -la src/third_party/depot_tools/win_toolchain/vs_files
-          ls -la src/third_party/depot_tools/win_toolchain/vs_files/*
+          echo "Windows platform detected, listing apache-win32 before gclient runhooks"
+          ls -la src/third_party/apache-win32/bin/
+
         fi
         echo "solutions=[{'name':'src/electron','url':None,'deps_file':'DEPS','custom_vars':{'process_deps':False},'managed':False}]" > tmpgclient
         if [ "${{ inputs.target-platform }}" = "windows" ]; then
@@ -202,8 +202,7 @@ jobs:
         # Fix VS Toolchain
         if [ "${{ inputs.target-platform }}" = "win" ]; then
           echo "Windows platform detected, listing VS files after gclient runhooks"
-          ls -la src/third_party/depot_tools/win_toolchain/vs_files
-          ls -la src/third_party/depot_tools/win_toolchain/*
+          ls -la src/third_party/apache-win32/bin/
           rm -rf src/third_party/depot_tools/win_toolchain/vs_files
           e d python3 src/build/vs_toolchain.py update --force          
           echo "GETTING TOOLCHAIN DIR"
