@@ -783,10 +783,10 @@ index dac5e25ceccf1a7f51c983cde387840e671513ae..e47117ec646378ecdb8d06dcb10cd9ad
      DWORD last_error = GetLastError();
      std::move(result_callback).Run(base::Process(), last_error, result);
 diff --git a/sandbox/policy/win/sandbox_win.h b/sandbox/policy/win/sandbox_win.h
-index 8fb74a2eefba49f95e4947ef9fd081ab8decebd4..3eed3d348132d5992c27bd8082a267fb42d4e431 100644
+index e057913cb3c7e51c6c48ecd5dca684525e580392..b92227497f07ab277ee8157187ce8ed34ea0a3eb 100644
 --- a/sandbox/policy/win/sandbox_win.h
 +++ b/sandbox/policy/win/sandbox_win.h
-@@ -92,7 +92,7 @@ class SANDBOX_POLICY_EXPORT SandboxWin {
+@@ -93,7 +93,7 @@ class SANDBOX_POLICY_EXPORT SandboxWin {
    // any other error.
    static ResultCode StartSandboxedProcess(
        const base::CommandLine& cmd_line,
@@ -795,7 +795,7 @@ index 8fb74a2eefba49f95e4947ef9fd081ab8decebd4..3eed3d348132d5992c27bd8082a267fb
        SandboxDelegate* delegate,
        StartSandboxedProcessCallback result_callback);
  
-@@ -105,7 +105,7 @@ class SANDBOX_POLICY_EXPORT SandboxWin {
+@@ -106,7 +106,7 @@ class SANDBOX_POLICY_EXPORT SandboxWin {
    // of sandbox::ResultCode for any other error while constructing the policy.
    static ResultCode GeneratePolicyForSandboxedProcess(
        const base::CommandLine& cmd_line,
