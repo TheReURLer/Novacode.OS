@@ -187,7 +187,7 @@ jobs:
         echo "Dumping .gclient file:"
         cat ./.gclient
         if [ "${{ inputs.target-platform }}" = "win" ]; then
-          echo "target_os=['$TARGET_OS']" >> ./.gclient
+          echo "target_os=['win']" >> ./.gclient
         fi
         echo "Dumping final .gclient file:"
         cat ./.gclient
