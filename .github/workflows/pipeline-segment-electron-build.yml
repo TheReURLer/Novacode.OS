@@ -184,6 +184,13 @@ jobs:
     - name: Init Build Tools
       run: |
         e init -f --root=$(pwd) --out=Default ${{ inputs.gn-build-type }} --import ${{ inputs.gn-build-type }} --target-cpu ${{ inputs.target-arch }} --remote-build siso
+        echo "Dumping .gclient file:"
+        cat ./.gclient
+        if [ "${{ inputs.target-platform }}" = "win" ]; then
+          echo "target_os=['$TARGET_OS']" >> ./.gclient
+        fi
+        echo "Dumping final .gclient file:"
+        cat ./.gclient
         e sanitize-config
     - name: Run Electron Only Hooks
       run: |
