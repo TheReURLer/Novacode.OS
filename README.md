@@ -1,44 +1,4 @@
-[![Electron Logo](https://electronjs.org/images/electron-logo.svg)](https://electronjs.org)
-
-[![GitHub Actions Build Status](https://github.com/electron/electron/actions/workflows/build.yml/badge.svg)](https://github.com/electron/electron/actions/workflows/build.yml)
-[![Electron Discord Invite](https://img.shields.io/discord/745037351163527189?color=%237289DA&label=chat&logo=discord&logoColor=white)](https://discord.gg/electronjs)
-
-:memo: Available Translations: 🇨🇳 🇧🇷 🇪🇸 🇯🇵 🇷🇺 🇫🇷 🇺🇸 🇩🇪.
-View these docs in other languages on our [Crowdin](https://crowdin.com/project/electron) project.
-
-The Electron framework lets you write cross-platform desktop applications
-using JavaScript, HTML and CSS. It is based on [Node.js](https://nodejs.org/) and
-[Chromium](https://www.chromium.org) and is used by the
-[Visual Studio Code](https://github.com/Microsoft/vscode/) and many other [apps](https://electronjs.org/apps).
-
-Follow [@electronjs](https://twitter.com/electronjs) on Twitter for important
-announcements.
-
-This project adheres to the Contributor Covenant
-[code of conduct](https://github.com/electron/electron/tree/main/CODE_OF_CONDUCT.md).
-By participating, you are expected to uphold this code. Please report unacceptable
-behavior to [coc@electronjs.org](mailto:coc@electronjs.org).
-
-## Installation
-
-To install prebuilt Electron binaries, use [`npm`](https://docs.npmjs.com/).
-The preferred method is to install Electron as a development dependency in your
-app:
-
-```sh
-npm install electron --save-dev
-```
-
-For more installation options and troubleshooting tips, see
-[installation](docs/tutorial/installation.md). For info on how to manage Electron versions in your apps, see
-[Electron versioning](docs/tutorial/electron-versioning.md).
-
-## Platform support
-
-Each Electron release provides binaries for macOS, Windows, and Linux.
-
-* macOS (Monterey and up): Electron provides 64-bit Intel and Apple Silicon / ARM binaries for macOS.
-* Windows (Windows 10 and up): Electron provides `ia32` (`x86`), `x64` (`amd64`), and `arm64` binaries for Windows. Windows on ARM support was added in Electron 5.0.8. Support for Windows 7, 8 and 8.1 was [removed in Electron 23, in line with Chromium's Windows deprecation policy](https://www.electronjs.org/blog/windows-7-to-8-1-deprecation-notice).
+Support for Windows 7, 8 and 8.1 was [removed in Electron 23, in line with Chromium's Windows deprecation policy](https://www.electronjs.org/blog/windows-7-to-8-1-deprecation-notice).
 * Linux: The prebuilt binaries of Electron are built on Ubuntu 22.04. They have also been verified to work on:
   * Ubuntu 18.04 and newer
   * Fedora 32 and newer
